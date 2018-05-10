@@ -6,8 +6,8 @@ from collections import defaultdict
 
 import classifiers
 
-label_file = "/Users/lihongsheng/Desktop/MyProject/SklearnPaperProject/data/label/labels_uaip_final.txt"
-feature_file = "/Users/lihongsheng/Desktop/MyProject/SklearnPaperProject/data/feature/samples_bfe86_tieba.data.uaip.group.features.json"
+label_file = "/Users/lihongsheng/Desktop/MyProject/PaperProject/SklearnPaperProject/data/label/labels_uaip_final.txt"
+feature_file = "/Users/lihongsheng/Desktop/MyProject/PaperProject/SklearnPaperProject/data/feature/samples_bfe86_tieba.data.uaip.group.features.json"
 
 def f2json(f):
     with open(f) as fin:
