@@ -77,8 +77,17 @@ def show_precision(ys, y_preds):
         if y != y_pred:
             error += 1
             errors["%d->%d" % (y, y_pred)] += 1
-    recalls = map(lambda v:float(v[1])/v[0], zip(classes, corrects)[1:])
-    precs = map(lambda v:float(v[1])/v[0], zip(recall, corrects)[1:])
+    newCorreccts = 1
+    for index,val in enumerate(recall):
+        if newCorreccts == 0:
+            newCorreccts = 1
+        if val == 0:
+            recall[index] = newCorreccts
+        newCorreccts = val
+        # for debug
+        # print index,val
+    recalls = map(lambda v:float(v[1])/float(v[0]), zip(classes, corrects)[1:])
+    precs = map(lambda v:float(v[1])/float(v[0]), zip(recall, corrects)[1:])
     print "Recalls:", "\t".join(map(lambda v:"%d/%d %.2f" % (v[1], v[0], float(v[1])/v[0]), zip(classes, corrects)[1:]))
     print "Precisions:", "\t".join(map(lambda v:"%d/%d %.2f" % (v[1], v[0], float(v[1])/v[0]), zip(recall, corrects)[1:]))
     print "Total Precision: %d/%d %.2f" % (total_correct, n, float(total_correct)/ n)
