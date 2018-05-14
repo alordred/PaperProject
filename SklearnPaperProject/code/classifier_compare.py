@@ -2,8 +2,8 @@
 
 import json
 import random
+import crossValidation
 from collections import defaultdict
-
 import classifiers
 
 label_file = "/Users/lihongsheng/Desktop/MyProject/PaperProject/SklearnPaperProject/data/label/labels_uaip_final.txt"
@@ -119,5 +119,6 @@ if __name__ == "__main__":
     keys = key2label.keys()
     xs = map(lambda key: key2features[key], keys)
     ys = map(lambda key: key2label[key], keys)
-    for clf, clfname in classifiers.clfs:
-        validate(xs, ys, clf, clfname)
+    crossValidation.crossValidateMain(xs,ys)
+    # for clf, clfname in classifiers.clfs:
+    #     validate(xs, ys, clf, clfname)

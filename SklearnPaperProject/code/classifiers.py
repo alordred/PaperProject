@@ -4,7 +4,6 @@ from sklearn.ensemble import RandomForestClassifier as RF, GradientBoostingRegre
 from sklearn.ensemble import AdaBoostClassifier as AB, ExtraTreesClassifier as ETDT
 from sklearn.neighbors import KNeighborsClassifier as KNN
 from sklearn.tree import DecisionTreeClassifier as DT
-from sklearn.neural_network import MLPClassifier as MLP
 from sklearn.linear_model import SGDClassifier as SGD
 from sklearn.svm import LinearSVC as SVC
 from sklearn.svm import LinearSVR as SVR
@@ -53,12 +52,6 @@ def new_pa():
             }
     return PA(**args)
 
-# 下面都是改了pre的数值不为0
-def new_mlp():
-    args = {
-            }
-    return MLP(**args)
-
 # 警告
 def new_sgd():
     args = {
@@ -89,10 +82,9 @@ clfs = [(new_rf(), "RandomForest"),
         (new_dt(), "DecisionTree"),
         (new_svc(), "SVC"),
         (new_ab(), "AdaBoost"),
-        (new_mlp(), "MLP"),
-        (new_sgd(), "SGD"),
         (new_gnb(), "GaussianNB"),
         (new_etdt(), "ExtraTrees"),
-        (new_pa(), "PassiveAggressive"),
-        (new_svr(), "SVR"),
+        # (new_sgd(), "SGD"),
+        # (new_pa(), "PassiveAggressive"),
+        # (new_svr(), "SVR"),
         ]
