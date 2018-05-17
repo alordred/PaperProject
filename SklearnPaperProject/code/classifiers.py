@@ -11,7 +11,7 @@ from sklearn.naive_bayes import GaussianNB as GNB
 from sklearn.linear_model import PassiveAggressiveClassifier as PA
 
 def new_rf():
-    args = {"max_depth":13,
+    args = {"max_depth":200,
             "random_state": 0,
             "n_estimators":49,
             "class_weight":"balanced_subsample",

@@ -14,7 +14,7 @@ from sklearn.tree import DecisionTreeClassifier
 
 
 
-k_range = range(5,60)
+k_range = range(50,160)
 
 def crossValidateMain(xs, ys):
     for clf, clfname ,color in algorithms:
@@ -44,6 +44,7 @@ def draw():
 
 def new_rf(k):
     args = {
+            "max_depth": 100,
             "n_estimators": k,
             }
     return RF(**args)
@@ -81,10 +82,10 @@ def new_ab(k):
     return AB(**args)
 
 algorithms = [(new_rf, "RandomForestClassifier", "r"),
-              (new_etdt, "ExtraTreesClassifier", "g"),
-              (new_knn, "KNN", "b"),
-              (new_etdt, "ETDT", "c"),
-              (new_sgd, "SGD", "k"),
-              (new_ab, "AdaBoostClassifier", "m"),
+              # (new_etdt, "ExtraTreesClassifier", "g"),
+              # (new_knn, "KNN", "b"),
+              # (new_etdt, "ETDT", "c"),
+              # (new_sgd, "SGD", "k"),
+              # (new_ab, "AdaBoostClassifier", "m"),
               # (new_gbdt, "GBDT", "m"),
               ]
