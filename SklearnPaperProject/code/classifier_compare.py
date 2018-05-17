@@ -6,7 +6,7 @@ import crossValidation
 from collections import defaultdict
 import classifiers
 
-label_file = "/Users/lihongsheng/Desktop/MyProject/PaperProject/SklearnPaperProject/data/label/labels_uaip_final.txt"
+label_file = "/Users/lihongsheng/Desktop/MyProject/PaperProject/SklearnPaperProject/data/label/label_uaip_4.txt"
 feature_file = "/Users/lihongsheng/Desktop/MyProject/PaperProject/SklearnPaperProject/data/feature/samples_bfe86_tieba.data.uaip.group.features_no_spurl.json"
 
 def f2json(f):
