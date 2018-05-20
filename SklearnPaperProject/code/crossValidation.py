@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import xlwt
 from datetime import datetime
 import Barchart as barchart
-
+import numpy as np
 import classifiers
 
 from sklearn.tree import DecisionTreeClassifier
@@ -27,16 +27,28 @@ sheet = workbook.add_sheet("Data")
 j = 0
 charColumnValue = []
 charColumnOffset = []
+importances = []
+indices = []
+def EvaluationFeatureImportance(xs, ys, max_k):
+    global importances, indices
+    forest = RF(n_estimators=max_k, random_state=0, n_jobs=-1)
+    forest.fit(xs, ys)
+    importances = forest.feature_importances_
+    indices = np.argsort(importances)[::-1]
+    for f in range(len(importances)):
+        print(importances[indices[f]])
+    barchart.barImportance(importances, indices, forest)
 
 def crossValidateMain(xs, ys):
     global charColumnValue, charColumnOffset
+    global importances, indices
     for clf, clfname ,color in algorithms:
         print "for"
         global j
         crossValidate(xs, ys, clf, clfname, color)
         j = j + 1
     # draw()
-    barchart.bar(charColumnValue, charColumnOffset)
+    barchart.barCompare(charColumnValue, charColumnOffset)
 
 def crossValidate(xs, ys, clf, clfname, color):
     global charColumnValue, charColumnOffset
@@ -56,11 +68,13 @@ def crossValidate(xs, ys, clf, clfname, color):
             maxAverageScore = scores.mean()
             maxOffest = max(scores) - min(scores)
             w = 1
+    if clfname == "RandomForest":
+        EvaluationFeatureImportance(xs, ys, max_k)
     print clfname + "maxAverageScore score : " + str(maxAverageScore)
     print "max k : " + str(max_k)
     print "maxOffest : " + str(maxOffest)
     charColumnValue.append(maxAverageScore)
-    charColumnOffset.append(maxOffest)
+    charColumnOffset.append(maxOffest/2.0)
     sheet.write(row0, j, clfname)
     sheet.write(row1, j, str(maxAverageScore))
     # plt.plot(k_range, k_scores, 'o-', color=color, label=clfname)
@@ -121,13 +135,13 @@ def new_gbdt(k):
             }
     return GBDT(**args)
 
-algorithms = [(new_rf, "RandomForestClassifier", "r"),
-              (new_etdt, "ExtraTreesClassifier", "g"),
+algorithms = [(new_rf, "RandomForest", "r"),
+              (new_etdt, "ExtraTrees", "g"),
               (new_knn, "KNN", "b"),
               (new_etdt, "ETDT", "c"),
               (new_sgd, "SGD", "k"),
-              (new_ab, "AdaBoostClassifier", "m"),
+              (new_ab, "AdaBoost", "m"),
               (new_svc, "SVC", "y"),
               (new_gnb, "GaussianNB", "w"),
-              (new_gbdt, "GradientBoostingClassifier", "#DB7093")
+              (new_gbdt, "GradientBoost", "#DB7093")
               ]

@@ -5,7 +5,14 @@ from matplotlib.ticker import MaxNLocator
 from collections import namedtuple
 import crossValidation
 
-def bar(values, Offsets):
+def barImportance(importances, indices, forest):
+    std = np.std([tree.feature_importances_ for tree in forest.estimators_],
+                 axis=0)
+    plt.bar(range(len(importances)), importances[indices],
+            color="r", yerr=std[indices])
+    plt.show()
+
+def barCompare(values, Offsets):
     means_men = tuple(values)
     std_men = tuple(Offsets)
     names = []
@@ -17,10 +24,11 @@ def bar(values, Offsets):
     bar_width = 0.35
     opacity = 0.4
     error_config = {'ecolor': '0.3'}
-    rects1 = ax.bar(index, means_men, bar_width,
-                    alpha=opacity, color='b',
-                    yerr=std_men, error_kw=error_config,
-                    label='Men')
+    # rects1 = ax.bar(index, means_men, bar_width,
+    #                 alpha=opacity, color='b',
+    #                 yerr=std_men, error_kw=error_config,
+    #                 label='Men')
+    ax.bar(range(len(means_men)), means_men, yerr=std_men, edgecolor='black', hatch='/')
     ax.set_xlabel('Group')
     ax.set_ylabel('Scores')
     ax.set_title('Scores by group and gender')
