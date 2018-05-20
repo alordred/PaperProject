@@ -19,7 +19,7 @@ from sklearn.tree import DecisionTreeClassifier
 
 
 
-k_range = range(100,101)
+k_range = range(100,102)
 xls_dir = "/Users/lihongsheng/Desktop/MyProject/PaperProject/SklearnPaperProject/xls/"
 
 workbook = xlwt.Workbook()
@@ -29,19 +29,24 @@ charColumnValue = []
 charColumnOffset = []
 importances = []
 indices = []
+featureNames = []
 def EvaluationFeatureImportance(xs, ys, max_k):
-    global importances, indices
+    global importances, indices ,featureNames
     forest = RF(n_estimators=max_k, random_state=0, n_jobs=-1)
     forest.fit(xs, ys)
     importances = forest.feature_importances_
     indices = np.argsort(importances)[::-1]
     for f in range(len(importances)):
         print(importances[indices[f]])
-    barchart.barImportance(importances, indices, forest)
+    # 上面是不行
+    barchart.barImportance2(xs, ys, max_k ,featureNames)
+    # barchart.barImportance(importances, indices, forest)
 
-def crossValidateMain(xs, ys):
-    global charColumnValue, charColumnOffset
+
+def crossValidateMain(xs, ys, names):
+    global charColumnValue, charColumnOffset ,featureNames
     global importances, indices
+    featureNames = names
     for clf, clfname ,color in algorithms:
         print "for"
         global j
@@ -140,8 +145,8 @@ algorithms = [(new_rf, "RandomForest", "r"),
               (new_knn, "KNN", "b"),
               (new_etdt, "ETDT", "c"),
               (new_sgd, "SGD", "k"),
-              (new_ab, "AdaBoost", "m"),
-              (new_svc, "SVC", "y"),
-              (new_gnb, "GaussianNB", "w"),
+              # (new_ab, "AdaBoost", "m"),
+              (new_svc, "SVM", "y"),
+              (new_gnb, "naive_bayes", "w"),
               (new_gbdt, "GradientBoost", "#DB7093")
               ]

@@ -6,6 +6,7 @@ import crossValidation
 from collections import defaultdict
 import classifiers
 
+feature_Names = "/Users/lihongsheng/Desktop/MyProject/PaperProject/SklearnPaperProject/data/feature/feature_names.json"
 label_file = "/Users/lihongsheng/Desktop/MyProject/PaperProject/SklearnPaperProject/data/label/label_uaip_4.txt"
 feature_file = "/Users/lihongsheng/Desktop/MyProject/PaperProject/SklearnPaperProject/data/feature/samples_bfe86_tieba.data.uaip.group.features_no_spurl.json"
 
@@ -119,6 +120,7 @@ if __name__ == "__main__":
     keys = key2label.keys()
     xs = map(lambda key: key2features[key], keys)
     ys = map(lambda key: key2label[key], keys)
-    crossValidation.crossValidateMain(xs,ys)
+    key2featureNames = load_feature(feature_Names)
+    crossValidation.crossValidateMain(xs, ys ,key2featureNames)
     # for clf, clfname in classifiers.clfs:
     #     validate(xs, ys, clf, clfname)
