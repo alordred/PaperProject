@@ -8,6 +8,7 @@ from sklearn.ensemble import AdaBoostClassifier as AB
 from sklearn.svm import LinearSVC as SVC
 from sklearn.naive_bayes import GaussianNB as GNB
 from sklearn.cross_validation import cross_val_score
+from sklearn.tree import DecisionTreeClassifier as DT
 import matplotlib.pyplot as plt
 import xlwt
 from datetime import datetime
@@ -19,7 +20,7 @@ from sklearn.tree import DecisionTreeClassifier
 
 
 
-k_range = range(100,101)
+k_range = range(159,160)
 xls_dir = "/Users/lihongsheng/Desktop/MyProject/PaperProject/SklearnPaperProject/xls/"
 
 workbook = xlwt.Workbook()
@@ -138,13 +139,19 @@ def new_gbdt(k):
             }
     return GBDT(**args)
 
+def new_dt(k):
+    args = {
+            }
+    return DT(**args)
+
 algorithms = [(new_rf, "RandomForest", "r"),
-              (new_etdt, "ExtraTrees", "g"),
+              # (new_etdt, "ExtraTrees", "g"),
               (new_knn, "KNN", "b"),
               (new_etdt, "ETDT", "c"),
               (new_sgd, "SGD", "k"),
               # (new_ab, "AdaBoost", "m"),
               (new_svc, "SVM", "y"),
               (new_gnb, "naive_bayes", "w"),
-              (new_gbdt, "GradientBoost", "#DB7093")
+              (new_gbdt, "GradientBoost", "#DB7093"),
+              (new_dt, "DecisionTree", "#A52A2A")
               ]

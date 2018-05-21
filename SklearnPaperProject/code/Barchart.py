@@ -22,7 +22,7 @@ def barImportance(X, y, max_k ,featureNames):
     # for f in range(X.shape[1]):
     #     print("%d. feature %d (%f)" % (f + 1, indices[f], importances[indices[f]]))
     # Plot the feature importances of the forest
-    plt.figure()
+    plt.figure(1)
     plt.title("Feature importances")
     newFeatureNames = featureNames[0:48]
     plt.bar(range(len(newFeatureNames)), importances[indices],
@@ -37,16 +37,9 @@ def barCompare(values, Offsets):
     names = []
     for clf, clfname ,color in crossValidation.algorithms:
         names.append(str(clfname))
-    n_groups = len(means_men)
-    fig, ax = plt.subplots()
-    index = np.arange(n_groups)
-    bar_width = 0.6
-    ax.bar(range(len(means_men)), means_men, yerr=std_men, edgecolor='black', hatch='/')
-    ax.set_xlabel('Group')
-    ax.set_ylabel('Scores')
-    ax.set_title('Scores by group and gender')
-    ax.set_xticks(index + bar_width / 2)
-    ax.set_xticklabels(tuple(names))
-    ax.legend()
-    fig.tight_layout()
+    plt.figure(2)
+    bars = plt.bar(range(len(means_men)), means_men, tick_label=names, yerr=std_men, edgecolor='black')
+    for bar in bars:
+        bar.set_hatch('/')
     plottool.plot_saveEsp(config.algorithmCompare_dir)
+    plt.show()
