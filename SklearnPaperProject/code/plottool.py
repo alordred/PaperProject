@@ -21,3 +21,7 @@ def plot_seqs(seqs, fname = None):
         plt.savefig(fname)
     plt.close("all")
 
+def plot_saveEsp(dir):
+    fig = plt.gcf()
+    fig.set_size_inches(18.5, 10.5)
+    fig.savefig(dir)

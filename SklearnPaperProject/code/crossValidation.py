@@ -19,7 +19,7 @@ from sklearn.tree import DecisionTreeClassifier
 
 
 
-k_range = range(100,102)
+k_range = range(100,101)
 xls_dir = "/Users/lihongsheng/Desktop/MyProject/PaperProject/SklearnPaperProject/xls/"
 
 workbook = xlwt.Workbook()
@@ -39,9 +39,7 @@ def EvaluationFeatureImportance(xs, ys, max_k):
     for f in range(len(importances)):
         print(importances[indices[f]])
     # 上面是不行
-    barchart.barImportance2(xs, ys, max_k ,featureNames)
-    # barchart.barImportance(importances, indices, forest)
-
+    barchart.barImportance(xs, ys, max_k ,featureNames)
 
 def crossValidateMain(xs, ys, names):
     global charColumnValue, charColumnOffset ,featureNames
